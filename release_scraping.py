@@ -22,11 +22,10 @@ def scrape_release(link, dates, texts):
 		link: string of the URL to scrape
 		dates: list of release dates
 		texts: list of release text
-		
+
 	Outputs:
 		dates: updated list of release dates
 		texts: updated list with the links' text data
-
 	'''
 
 	pm = urllib3.PoolManager()
@@ -46,12 +45,12 @@ def scrape_release(link, dates, texts):
 
 	dates.append(date)
 	texts.append(ptxt)
-
+	
 	return dates, texts
 	
 	
 
-#textdf = pd.DataFrame({'date': [date], 'release_text': [ptxt]})
+#textdf = pd.DataFrame({'date': [date], 'release_text': [texts]})
 
 
 
