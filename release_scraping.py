@@ -15,6 +15,8 @@ import csv
 fed_home_page = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 
 
+
+
 def scrape_release(link, dates, texts):
 	'''
 	Takes the URL to an individual press release 
@@ -52,8 +54,6 @@ def scrape_release(link, dates, texts):
 	
 	return dates, texts
 
-#print(scrape_release(www.federalreserve.gov/newsevents/pressreleases/monetary20170201a.htm))
-
 # 'Fed Statement Scraper
 #
 # 
@@ -82,14 +82,12 @@ def make_soup(request):
 
 # Helper Function 2
 
-def calendar_scraper(url, limiting_domain):
+def post2013_calendar_scraper(url):
     '''
     Extracts links from a given url.
 
     Inputs:
         url - (string) url from which to get 
-        limiting_domain: (string) that links must match
-        visited_links: (list) of already visited sites 
     Outputs:
         links - list of strings, non-repetead and not previously visited
                 links
@@ -98,27 +96,29 @@ def calendar_scraper(url, limiting_domain):
     '''
     #A. Extracting links
     req = util.get_request(url)
-    url2 = util.get_request_url(req)
     soup  = make_soup(req)
+    home_page = "https://www.federalreserve.gov"
     
     if soup: 
-        cal = []
-        cal_list = soup.find_all("div",class_ = "panel panel_default" )
-        for d in div_list:
-            d_tr = util.remove_fragment(link.get("href")) 
-            d_abs = util.convert_if_relative_url(url2, d_tr)
-            if util.is_url_ok_to_follow(d_abs, limiting_domain):
-                cal.append(d_abs)
+        release_links = []
+        tables_list = soup.find_all("div",class_ = "panel panel-default" )
+        for t in tables_list:
+            statement_list = t.find_all('div', 'col-xs-12 col-md-4 col-lg-2')
+            for s in statement_list:
+                a_list = s.find_all('a')
+                if a_list:
+                    if len(a_list) > 1:
+                        for a in a_list:
+                            if a.text == 'HTML':
+                                link_abs = home_page + a['href']
+                                #link_abs = util.convert_if_relative_url(a['href'],home_page)
+                                release_links.append(link_abs)
+                    else:
+                        link_abs = home_page + a_list[0]['href']
+                        #link_abs = util.convert_if_relative_url(a_list[0]['href'], home_page)
+                        release_links.append(link_abs)
 
-        art = []
-        art_list = soup.find_all("div",class_ = "panel panel_default" )
-        for d in div_list:
-            d_tr = util.remove_fragment(link.get("href")) 
-            d_abs = util.convert_if_relative_url(url2, d_tr)
-            if util.is_url_ok_to_follow(d_abs, limiting_domain):
-                cal.append(d_abs)
-    return cal, art
-
+    return release_links
 	
 	
 
