@@ -5,6 +5,11 @@ import bs4
 import urllib3
 import re
 import pandas as pd
+import util
+import queue
+import json
+import sys
+import csv
 
 
 fed_home_page = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
@@ -47,28 +52,13 @@ def scrape_release(link, dates, texts):
 	
 	return dates, texts
 
-print(scrape_release(www.federalreserve.gov/newsevents/pressreleases/monetary20170201a.htm))
+#print(scrape_release(www.federalreserve.gov/newsevents/pressreleases/monetary20170201a.htm))
 
 # 'Fed Statement Scraper
 #
 # 
 #
 
-import re
-import util
-import bs4
-import queue
-import json
-import sys
-import csv
-
-INDEX_IGNORE = set(['a', 'also', 'an', 'and', 'are', 'as', 'at', 'be',
-                    'but', 'by', 'course', 'for', 'from', 'how', 'i',
-                 'ii', 'iii', 'in', 'include', 'is', 'not', 'of',
-                    'on', 'or', 's', 'sequence', 'so', 'social', 'students',
-                    'such', 'that', 'the', 'their', 'this', 'through', 'to',
-                    'topics', 'units', 'we', 'were', 'which', 'will', 'with',
-                    'yet'])
 
 
 # Helper Function 1
