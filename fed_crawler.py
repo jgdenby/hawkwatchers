@@ -117,36 +117,36 @@ def aux_words(main_t, d, plus, course_map_filename):
                     d[w].append(course_id)
     return d 
 
-def extract_words(soup, d_words, course_map_filename):
-    '''
-    Updates a word to course code dictionary given a soup object for a 
-    given url. Calls aux_words function for sequence and non-sequence 
-    courses. 
+# def extract_words(soup, d_words, course_map_filename):
+#     '''
+#     Updates a word to course code dictionary given a soup object for a 
+#     given url. Calls aux_words function for sequence and non-sequence 
+#     courses. 
 
-    Inputs:
-        soup - (soup) 
-        d_words - (dictionary) to be updated
-        course_map_filename - (json file) maps course code to course id
-    Outputs:
-        d_words - updated dictionary
+#     Inputs:
+#         soup - (soup) 
+#         d_words - (dictionary) to be updated
+#         course_map_filename - (json file) maps course code to course id
+#     Outputs:
+#         d_words - updated dictionary
 
-    '''
-    soup_div = soup.find_all("div",  class_="courseblock main")
+#     '''
+#     soup_div = soup.find_all("div",  class_="courseblock main")
 
-    if len(soup_div) > 0: 
-        for main in soup_div:
-            if len(util.find_sequence(main)) > 0:
-                plus = main.find("p", class_ = "courseblockdesc").text.lower()
-                sub_courses = util.find_sequence(main)
-                for sub in sub_courses:
-                    d_words = aux_words(sub, d_words, plus, course_map_filename) 
-            else: 
-                d_words = aux_words(main, d_words, "", course_map_filename)
+#     if len(soup_div) > 0: 
+#         for main in soup_div:
+#             if len(util.find_sequence(main)) > 0:
+#                 plus = main.find("p", class_ = "courseblockdesc").text.lower()
+#                 sub_courses = util.find_sequence(main)
+#                 for sub in sub_courses:
+#                     d_words = aux_words(sub, d_words, plus, course_map_filename) 
+#             else: 
+#                 d_words = aux_words(main, d_words, "", course_map_filename)
 
-    return d_words
+#     return d_words
 
 
-def crawl(url, limiting_domain, limit, course_map_filename):
+def crawl(url, limit):
     '''
     Takes a starting url and subsequently visits links that are found in that
     page and in the following visited ones. Updates a dictionary by mapping 
@@ -164,13 +164,13 @@ def crawl(url, limiting_domain, limit, course_map_filename):
         d_words - completed dictionary after crawl
     '''
     q = queue.Queue()
+    limiting_domain = "federalreserve.gov/monetarypolicy/"
     visited_links = [url]
-    d_words = {}
     q.put(url)
     count = 0
     while q.empty() == False and count <= limit: 
-        links, soup = extract_site(q.get(), limiting_domain, visited_links)
-        extract_words(soup, d_words, course_map_filename)
+        links, soup = calendar_scraper(q.get(), limiting_domain, visited_links)
+        # extract_words(soup, d_words, course_map_filename)
         if  len(links) == 0: 
             continue
         else: 
@@ -183,7 +183,7 @@ def crawl(url, limiting_domain, limit, course_map_filename):
                 q.put(link2)
                 visited_links.append(link2)
                 visited_links.append(link)
-    return d_words
+    return visited_links
 
 def output_csv(index, index_filename):
     '''

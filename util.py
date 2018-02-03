@@ -105,7 +105,7 @@ def convert_if_relative_url(current_url, new_url):
         return None
 
     ext = path_parts[0][-4:]
-    if ext in [".edu", ".org", ".com", ".net"]:
+    if ext in [".edu", ".org", ".com", ".net", ".gov"]:
         return "http://" + new_url
     elif new_url[:3] == "www":
         return "http://" + new_path
