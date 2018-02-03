@@ -1,7 +1,7 @@
 
 ### Script / functions for scraping the press releases
 
-import bs3
+import bs4
 import urllib3
 import re
 import pandas as pd
