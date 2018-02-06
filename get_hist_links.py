@@ -13,16 +13,18 @@ fed_hist_page = "https://www.federalreserve.gov/monetarypolicy/fomc_historical_y
 FRAG = "https://www.federalreserve.gov"
 
 
-def get_hist_links(link, min_year):
+def get_hist_links(link, min_year, doc_type):
     '''
     Extracts links to Fed statements pre 2013
 
     Inputs:
         (str): url
         (float): earliest year
+        (str) document wanted: "Statement", "Minutes", etc.
     Outputs:
         (list): links to statement, html version 
     '''
+    doc_type = "Statement"
     soup = make_soup(link)
     a_links = soup.find_all('a')
     st_links =[]
@@ -32,7 +34,7 @@ def get_hist_links(link, min_year):
             soup  = make_soup(mp_link)
             links = soup.find_all('a')
             for a in links:
-                if a.text == "Statement":
+                if a.text == doc_type: 
                     st_links.append(FRAG + a.get("href"))
     return st_links
 
