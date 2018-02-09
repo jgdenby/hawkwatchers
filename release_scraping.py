@@ -13,11 +13,12 @@ import csv
 
 
 fed_home_page = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+fed_historical_page = "https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm"
 
 
 
 
-def scrape_release(link, dates, texts):
+def scrape_release_hist(link, dates, texts):
 	'''
 	Takes the URL to an individual press release 
 	and an ongoing lists of the dates and texts, 
