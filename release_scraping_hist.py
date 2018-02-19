@@ -5,6 +5,7 @@ import urllib3
 import re
 import util
 import sys
+import pandas as pd
 import csv
 
 
@@ -92,10 +93,21 @@ def scrape_release_hist(link, dates, texts):
     return dates, texts
 
 
-dates, texts = [], []
+dates, texts, info = [], [], []
 links = get_hist_links()
 for link in links:
     scrape_release_hist(link, dates, texts)
+for i in range(len(dates)):
+    info.append((dates[i], texts[i].replace(",", " ")))
+
+df = pd.DataFrame(info, columns=["date", "text"])
+df.to_csv('texts06_07.csv')
+
+
+
+
+
+
 
 
 
