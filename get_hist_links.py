@@ -15,7 +15,7 @@ HEADLINES = ["FRB: Press Release -- FOMC statement --" , "FRB: Press Release -- 
  "FRB: Press Release--FOMC statement and Board discount rate action--"]
 
 
-def get_hist_links(link, min_year, max_year, doc_type):
+def get_hist_links(link = fed_home_page, min_year = 2006, max_year = 2007, doc_type = "Statement"):
     '''
     Extracts links to Fed statements pre 2013
 
