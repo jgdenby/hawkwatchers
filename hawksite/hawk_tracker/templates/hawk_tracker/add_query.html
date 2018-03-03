@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" />
+<html>
+    <head>
+        <title>Hawkwatchers</title>
+    </head>
+
+    <body>
+        <h1>Add a Monetary Policy Statement...</h1>
+
+        <form id="query_form" method="post" action="/hawk_tracker/add_query/">
+
+            {% csrf_token %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Find out what Hawkwatchers thinks about this!" />
+        </form>
+    </body>
+
+</html>

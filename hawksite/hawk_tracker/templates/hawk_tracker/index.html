@@ -1,0 +1,49 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" />
+<html>
+
+    <head>
+        <title>Hawkwatchers</title>
+    </head>
+
+
+    <body>
+        <h1> H A W K W A T C H E R S </h1>
+        Welcome to Hawkwatchers!<strong>{{ boldmessage }}</strong><br /><br />
+        So, according to the latest Federal Reserve's monetary policy statement, are interest rates more likely to go <span style="color:rgb(255, 90, 41)" > up </span>  or <span style="color: rgb(60, 179, 113)"> down </span>? <br /><br />
+        Let's find out! <br />
+        <img src="{% static "dollar.jpeg" %}" alt="" /> <!-- New line -->
+        <a href="{%/hawk_tracker/add_query/}">Please Add a New Monetary Policy Statement...</a><br />
+
+        
+    </body>
+
+
+{% if latest_statement_list %}
+    <ul>
+    Last Fed statement we got to analyze: </br>
+    {% for st in latest_statement_list %}
+    <p>
+        <strong>{{ st.statement_title }}: {{ st.statement_last }} EST</strong></br>
+        <ul TYPE="square">
+        <li><a href="{% url 'hawk_tracker:detail' st.id %}">{{ st.statement_header }}</a></li></br> <!--MISSING: LINK TO THE WHOLE TEXT-->
+        <li>{{ st.statement_next }}</li>
+        </ul>
+    
+        
+        
+         
+    {% endfor %}
+
+    </ul>
+
+{% else %}
+    No statements are available.
+{% endif %}
+
+</html>
+

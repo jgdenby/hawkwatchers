@@ -1,0 +1,39 @@
+
+title {
+	color: white; font-family:arial}
+
+a {
+	color: rgb(220, 220, 220); font-family:arial; font-style:italic;font-size: 110%
+}
+
+li a {
+    font-family:arial;color:rgb(60, 179, 113); font-size: 100%
+}
+
+ul { TYPE="square";
+  padding-right: 10px;
+}
+
+body {
+    background: rgb(40, 40, 40); color: rgb(240, 240, 240); font-family:arial;
+    font-size: 110%;
+    border: 1px solid powderblue;
+    padding: 30px;
+
+background-image:src="{% static "dollar.jpeg" %}";
+background-position: right top;
+background-repeat:no-repeat;background-attachment:fixed;
+}
+
+h1 {
+	color: rgb(220, 220, 220); font-family:arial; font-size: 220%;
+}
+
+
+
+link {
+	color: rgb(220, 220, 220); font-family:arial; font-size: 100%;
+}
+
+p {   font-family:arial; font-size: 100% ; border: 1px solid white;
+    padding: 20px;}
