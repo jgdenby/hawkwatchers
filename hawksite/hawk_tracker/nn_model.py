@@ -29,8 +29,6 @@ def predict(model, new_text):
 		prediction (boolean) 
 	'''
 
-	# model_strings = ['Neural Networks', 'Decision Tree', 'Bagging (Decision Tree)', 'Naive Bayes' ]
-
 	# reads local csv with all releases from Feb 1994 ['release_text'], 
 	# the month ['month'] & year ['year'] of release, 
 	# the change in interest rate associated with that month ['Change'],
@@ -71,7 +69,7 @@ def predict(model, new_text):
 	test_vects = [np.array(v).flatten() for v in TFVects_test.todense()]
 
 	# classify new_text 
-	y_pred = clf_nn.predict(np.stack(test_vects, axis=0))
+	y_pred = clf.predict(np.stack(test_vects, axis=0))
 
 	return y_pred[0]
 
