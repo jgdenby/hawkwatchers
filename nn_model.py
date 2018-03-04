@@ -21,12 +21,14 @@ def predict(new_text):
 		new_text (str): a string representation of the new release text
 
 	Outputs:
-		prediction (str): 
+		prediction (boolean) 
 	'''
-	# reads local csv with all releases from Feb 1994, the month & year
-	# of release, the numerical change in interest rate associated
-	# with that month, and a boolean expression indicating whether
-	# the interest rate increased
+
+	# reads local csv with all releases from Feb 1994 ['release_text'], 
+	# the month ['month'] & year ['year'] of release, 
+	# the change in interest rate associated with that month ['Change'],
+	# and a boolean expression indicating whether
+	# the interest rate increased ['increase']
 	releaserates_df = pd.read_csv('allreleaserates.csv', index_col=0)
 
 
