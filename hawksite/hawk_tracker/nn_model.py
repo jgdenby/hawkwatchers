@@ -53,7 +53,7 @@ def predict(model, new_text):
 	# the change in interest rate associated with that month ['Change'],
 	# and a boolean expression indicating whether
 	# the interest rate increased ['increase']
-	releaserates_df = pd.read_csv('allreleaserates.csv', index_col=0)
+	releaserates_df = pd.read_csv('hawk_tracker/allreleaserates.csv', index_col=0)
 
 
 	# computes tf-idf for all release texts and creates a vector representation
@@ -65,19 +65,21 @@ def predict(model, new_text):
 	releaserates_df['vect'] = [np.array(v).flatten() for v in TFVects.todense()]
 
 	# instantiate model specified
-	if model == "Neural Networks":
+	if model == "NN":
 		clf = sklearn.neural_network.MLPClassifier()
 	
-	elif model == 'Decision Tree':
+	elif model == 'DT':
 		clf = sklearn.tree.DecisionTreeClassifier(max_depth=10)
 	
-	elif model == 'Bagging (Decision Tree)':
+	elif model == 'BAG':
 		tree = sklearn.tree.DecisionTreeClassifier(max_depth=10) 
 		clf = sklearn.ensemble.BaggingClassifier(tree, n_estimators=100,
 			max_samples=0.8) 
 	
-	elif model == 'Naive Bayes':
+	elif model == 'NB':
 		clf = sklearn.naive_bayes.GaussianNB()
+	else:
+		pass
 
 
 	# fit model

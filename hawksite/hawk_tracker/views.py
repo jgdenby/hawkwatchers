@@ -1,11 +1,17 @@
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+import daytime 
 from .forms import QueryForm
 from .models import Answer, Query, Statement
+from hawk_tracker import nn_model
+import nltk
+import enchant
+from sklearn.model_selection import train_test_split
 
 class IndexView(generic.ListView):
     template_name = 'hawk_tracker/index.html'
@@ -32,95 +38,100 @@ class DetailView(generic.DetailView):
     template_name = 'hawk_tracker/detail.html'
 
 
-class ResultsView(generic.DetailView):
-    model = Query
-    template_name = 'hawk_tracker/results.html'
+# class ResultsView(generic.DetailView):
+#     model = Answer
+#     context_object_name = 'result'
+#     template_name = 'hawk_tracker/result.html'
 
-    # def get_results(self): # WE WANT TO LINK THIS TO OUR MODEL RESULTS
-    #     """Return the last five published queries."""
-    #     return Query.objects.order_by('-query_date')[:5]
+# def get_results(self): # WE WANT TO LINK THIS TO OUR MODEL RESULTS
+#     """Return the last five published queries."""
+#     return Query.objects.order_by('-query_date')[:5]
 
-
-def query(request, query_name_url):
-    # Request our context from the request passed to us.
-    #context = RequestContext(request)
-
-    # Change underscores in the category name to spaces.
-    # URLs don't handle spaces well, so we encode them as underscores.
-    # We can then simply replace the underscores with spaces again to get the name.
-    query_name = query_name_url.replace('_', ' ')
-
-    # Create a context dictionary which we can pass to the template rendering engine.
-    # We start by containing the name of the category passed by the user.
-    context_dict = {'query_name': query_name}
-
-    try:
-        # Can we find a category with the given name?
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
-        query = Query.objects.get(name=query_name)
-
-        # Retrieve all of the associated pages.
-        # Note that filter returns >= 1 model instance.
-        query = Query.objects.filter(query=query)
-
-        # Adds our results list to the template context under name pages.
-        context_dict['query'] = query
-        # We also add the category object from the database to the context dictionary.
-        # We'll use this in the template to verify that the category exists.
-        context_dict['query'] = query
-    except Query.DoesNotExist:
-        # We get here if we didn't find the specified category.
-        # Don't do anything - the template displays the "no category" message for us.
-        pass
-
-    # Go render the response and return it to the client.
-    return render_to_response('hawk_tracker/query.html', context_dict)
 
 def add_query(request):
     # Get the context from the request.
     #context = RequestContext(request)
-
-    # A HTTP POST?
-    if request.method == 'POST':
-        form = QueryForm(request.POST)
-
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new category to the database.
-            form.save(commit=True)
-
-            # Now call the index() view.
-            # The user will be shown the homepage.
-            return index(request)
-        else:
-            # The supplied form contained errors - just print them to the terminal.
-            print(form.errors)
-    else:
-        # If the request was not a POST, display the form to enter details.
-        form = QueryForm()
-
-    # Bad form (or form details), no form supplied...
+    form = QueryForm()
+    
     # Render the form with error messages (if any).
-    return render_to_response('hawk_tracker/add_query.html', {'form': form})
+    return render(request, 'hawk_tracker/add_query.html', context = {'form': form})
 
 
+def result(request):
+    # query_inst = get_object_or_404(Query)
+
+    if request.method == 'POST':
+        form = QueryForm(request.POST) # INSTANTIATE Query with user's input (text)
+        
+        text = form.data['query_text']
+        method = form.data['query_method']
+
+        if check(text):
+            query_answer = process_query(method, text)
+            context = {'answer': query_answer[0], 'next': query_answer[1]}
+            if query_answer:
+                context = {'answer': query_answer[0], 'next': query_answer[1]}
+            else:
+                query_answer = "Seems you forgot to choose a  prediction model.. "
+
+        else:
+            query_answer = "...Oh, wait! This doesn't quite look like a monetary policy statement..."
+            context = {'answer': query_answer}
+            
+            # PROCESS THIS WITH NLTK
+        print(query_answer)
+        
+        query_inst = Query()
+        #query_inst.query_date = "Sun, 4 Mar 2018 23:30:13 +0000" ### CHECK THIS LATER
+        query_inst.query_answer = query_answer
+        query_inst.query_text = text
+        query_inst.query_method = method
+        query_inst.save()
+        answer_inst = Answer(answer_text = query_inst.query_answer) # INSTANTIATE ANSWER WITH THE MODEL RESULT
+        
+        print(query_inst.query_method)
+
+    return render(request,'hawk_tracker/add_query/result.html', context) # WHERE
+    #THE USER WILL BE REDIRECTED TO CHECK THE RESULT
 
 
+def check(new_text, thresh = .25):
+    outcome = []
+    outcome.append(len(new_text) > 200)
 
-# def index(request):
-#     # Obtain the context from the HTTP request.
-#     context = RequestContext(request)
+    d = enchant.Dict('en_US')
 
-#     # Query for categories - add the list to our context dictionary.
-#     query_list = Query.objects.order_by('query_date')[:5]
-#     context_dict = {'queries': query_list}
+    word_list = new_text.split(' ')
+    non_en = 0
 
-#     # The following two lines are new.
-#     # We loop through each category returned, and create a URL attribute.
-#     # This attribute stores an encoded URL (e.g. spaces replaced with underscores).
-#     for query in query_list:
-#         query.url = query.name.replace(' ', '_')
+    for w in word_list:
+        if not d.check(w):
+            non_en += 1
 
-#     # Render the response and return to the client.
-#     return render_to_response('hawk_tracker/index.html', context_dict, context)
+    outcome.append(non_en/len(word_list) <= thresh)
+
+    if "econ" not in new_text:
+        outcome.append(False)
+    else:
+        True
+
+    if False in outcome:
+        return False
+    else:
+        return True
+
+def process_query(method, query_answer):
+    '''
+    Process a given query with the NLTK model
+
+    '''
+    
+    res = nn_model.predict(method, query_answer)
+    
+    if res == True:
+        mess = "HAWKISH!", "UP"
+    else:
+        mess = "DOVISH!", "DOWN"
+    
+    return mess
+    

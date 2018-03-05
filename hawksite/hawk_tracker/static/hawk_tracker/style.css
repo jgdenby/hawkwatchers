@@ -19,14 +19,10 @@ body {
     font-size: 110%;
     border: 1px solid powderblue;
     padding: 30px;
-
-background-image:src="{% static "dollar.jpeg" %}";
-background-position: right top;
-background-repeat:no-repeat;background-attachment:fixed;
 }
 
 h1 {
-	color: rgb(220, 220, 220); font-family:arial; font-size: 220%;
+	color: rgb(220, 220, 220); font-family:arial; font-size: 180%;
 }
 
 
@@ -37,3 +33,11 @@ link {
 
 p {   font-family:arial; font-size: 100% ; border: 1px solid white;
     padding: 20px;}
+
+img {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    right: 16px;
+    top: 20px;
+}
