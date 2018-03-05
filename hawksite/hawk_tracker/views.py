@@ -75,7 +75,7 @@ def result(request):
                 query_answer = "Seems you forgot to choose a  prediction model.. "
 
         else:
-            query_answer = "...Oh, wait! This doesn't quite look like a monetary policy statement..."
+            query_answer = "...Oh, wait! This doesn't quite look like a Fed's statement..."
             context = {'answer': query_answer}
             
             # PROCESS THIS WITH NLTK
@@ -87,7 +87,9 @@ def result(request):
         query_inst.query_text = text
         query_inst.query_method = method
         query_inst.save()
-        answer_inst = Answer(answer_text = query_inst.query_answer) # INSTANTIATE ANSWER WITH THE MODEL RESULT
+        ans_inst = Answer(query_answer = query_inst) # INSTANTIATE ANSWER WITH THE MODEL RESULT
+        ans_inst.text = query_answer
+        ans_inst.save()
         
         print(query_inst.query_method)
 

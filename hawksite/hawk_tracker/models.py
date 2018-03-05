@@ -23,10 +23,10 @@ class Answer(models.Model):
     query_answer = models.OneToOneField(Query, on_delete=models.CASCADE, primary_key=True,) # an answer for a query
     #statement = models.ForeignKey(Query, on_delete=models.CASCADE) # an answer for a statement
     answer_text = models.CharField(max_length=200) # hawkish, dovish
-    answer_num = models.IntegerField(default=0) #boolean associated to the nltk model
+    answer_num = models.CharField(max_length=20) #boolean associated to the nltk model
 
     def __str__(self):
-        return self.answer_num
+        return self.answer_text
 
     #missing: answer --> link instance to the nltk model output
 class Statement(models.Model):
