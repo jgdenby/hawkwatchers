@@ -1,4 +1,4 @@
-### Script / functions for scraping the press releases
+# Script / functions for scraping the press releases previous to 2013
 
 import bs4
 import urllib3
