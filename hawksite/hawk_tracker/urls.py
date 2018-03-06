@@ -8,6 +8,7 @@ urlpatterns = [
     #path('<int:pk>', views.ResultsView.as_view(), name='result'),
     path('<int:pk>/statement/', views.StatementView.as_view(), name='statement'),
     path('add_query/', views.add_query, name='addquery'),
+    path('about/', views.about, name='about'),
     path('add_query/result/', views.result, name='result'),
     
  ]

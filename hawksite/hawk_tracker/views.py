@@ -37,17 +37,13 @@ class DetailView(generic.DetailView):
     model = Statement
     template_name = 'hawk_tracker/detail.html'
 
+# class AboutView(generic.ListView):
+#     template_name = 'hawk_tracker/about.html'
 
-# class ResultsView(generic.DetailView):
-#     model = Answer
-#     context_object_name = 'result'
-#     template_name = 'hawk_tracker/result.html'
+def about(request):
 
-# def get_results(self): # WE WANT TO LINK THIS TO OUR MODEL RESULTS
-#     """Return the last five published queries."""
-#     return Query.objects.order_by('-query_date')[:5]
-
-
+    # Render the form with error messages (if any).
+    return render(request, 'hawk_tracker/about.html')
 def add_query(request):
     # Get the context from the request.
     #context = RequestContext(request)
@@ -128,7 +124,8 @@ def process_query(method, query_answer):
 
     '''
     
-    res = nn_model.predict(method, query_answer)
+    #res = nn_model.predict(method, query_answer)
+    res = True
     
     if res == True:
         mess = "HAWKISH!", "UP"

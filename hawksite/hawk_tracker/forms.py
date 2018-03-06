@@ -16,9 +16,9 @@ class QueryForm(forms.ModelForm):
     #name = forms.CharField()
     query_text = forms.CharField(max_length=5000,
     widget = forms.Textarea(attrs={'cols': 110, 'rows': 20}), \
-    initial="Add statement here...")
+    initial="Add statement here...", label = '')
     query_method = forms.ChoiceField(widget=forms.Select(),
-                              required=True, choices = MODEL_CHOICES
+                              required=True, choices = MODEL_CHOICES,label = ''
         )
 
 

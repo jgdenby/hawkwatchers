@@ -2,6 +2,17 @@
 {% load static %}
 
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" /> 
+<html>
+    <head>
+        <title>Hawkwatchers</title>
+    </head>
+<body>
+<nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="/about" href="about/">About Us</a>
+<h1> Latest Fed Statement: {{ statement.statement_last }} </h1>
 {{ statement.statement_text }}
 <!--<li>{{ statement.answer_text }}</li> MISSING:OUR MODEL'S ANSWER-->
+</body>
+</html>

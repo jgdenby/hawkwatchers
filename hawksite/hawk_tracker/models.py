@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 
+
 class Query(models.Model):
     #query_title = models.CharField(max_length=1200)
     query_text = models.CharField(max_length=1200)
