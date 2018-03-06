@@ -3,7 +3,6 @@
 __hawkwatchers__ is an interface allowing users to predict fluctuations in the US Federal interest rate based on the text of press releases.
 
 ## Getting Started
----
 __hawkwatchers__ runs on [Django](https://www.djangoproject.com/) and makes use of a variety of [Python 3.6](https://docs.python.org/3/) packages.
 
 1. [pandas](https://pandas.pydata.org/)
@@ -19,7 +18,6 @@ $ pip install [package name]
 
 
 ## Authors
----
 - Elena Badillo Goicoechea
 - Natasha Mathur
 - Joseph Denby
