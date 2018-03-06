@@ -1,4 +1,4 @@
-### Script / functions for scraping the press releases
+### Script / functions for scraping the press releases prior to 2013
 
 import bs4
 import urllib3
@@ -59,7 +59,7 @@ def get_hist_links(link = fed_home_page, min_year = 2006, max_year = 2007, doc_t
 
 def make_soup(url): 
     '''
-    Makes a soup object from a html request object
+    Makes a soup object from a html request object.
 
     Inputs:
         request: a request object of the html 
