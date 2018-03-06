@@ -3,41 +3,45 @@
 
 
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style2.css' %}" />
 <html>
 
     <head>
-        <title>Hawkwatchers</title>
+        <title> H A W K W A T C H E R S </title>
     </head>
 
 
-    <body>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="/about" href="about/">About Us</a>
- 
-          </nav>
-        <h1> H A W K W A T C H E R S </h1>
-        Welcome to Hawkwatchers!<strong>{{ boldmessage }}</strong><br /><br />
-        So, according to the latest Federal Reserve's monetary policy statement, are interest rates more likely to go <span style="color:rgb(255, 70, 41)" > up </span>  or <span style="color: rgb(60, 179, 113)"> down </span>?  </br>  
-        Let's find out how <span style="color:rgb(255, 70, 41)" > hawksih </span> or <span style="color: rgb(60, 179, 113)"> dovish </span> it was! <br /><br />
-        
-        <a href="add_query/"> Please Add a New Monetary Policy Statement...</a><br />
+<body class = "text-center">
 
-        
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <header class="masthead-mb-auto">
+            <div class="inner">
+                
+                    <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="/index">Home</a>
+                    <a class="/about" href="about/">About Us</a>
+
+    <main role="main" class="inner cover">
+        <h1 align = 'center' style ='font-size:270%;'class="cover-heading">H A W K W A T C H E R S</h1>
+        <p style ='font-size:130%' class="lead">Welcome! According to the lastest Federal Reserve's monetary policy statement, are interest rates more likely to go <span style="color:rgb(255, 70, 41)" style='font-size:130%' > up </span> or <span style="color: rgb(60, 179, 113)"> down </span> ? </p> </br> 
+        <p class="lead">
+            <div style="text-align:center"> 
+            <a  href="add_query/"  class="btn btn-lg btn-secondary" >Let's find out!</a>
+        </div>
+
     </body>
 
-
 {% if latest_statement_list %}
-    <ul>
-    Last Fed statement we got to analyze: </br>
+    <ul> </br>
+    
     {% for st in latest_statement_list %}
     <p>
-        <strong>{{ st.statement_title }}: {{ st.statement_last }} EST</strong></br>
+        <strong> Most recent Fed statement: January, 31, 2018 </strong></br>
         <ul TYPE="square">
         <li><a href="{% url 'hawk_tracker:detail' st.id %}">{{ st.statement_header }}</a></li></br> <!--MISSING: LINK TO THE WHOLE TEXT-->
-        <li>{{ st.statement_next }}</li>
         </ul>
+        <strong>{{ st.statement_next }}<strong>
+        
          
     {% endfor %}
 

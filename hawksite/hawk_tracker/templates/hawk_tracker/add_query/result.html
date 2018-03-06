@@ -2,7 +2,7 @@
 <!-- WHAT THE USER WILL SEE -->
 
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hawk_tracker/style2.css' %}" />
 
 <html>
 
@@ -11,11 +11,12 @@
         <title> Hawkwatchers says... </title>
          <body class="text-center">
             <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="/index">Home</a>
-            <a class="/about" href="about/">About Us</a>
-        <h1> H A W K W A T C H E R S </h1>
+            <a class="nav-link active" href="hawk_tracker/index/">Home</a>
+            <a class="/about" href="hawk_tracker/about/">About Us</a>
+        <h1 style = 'font-size = 270%;'>  H A W K W A T C H E R S </h1>
         We got an answer... <strong>{{ boldmessage }}</strong><br /><br />
-        It looks like the statement you submitted was <strong>{{answer}} </strong></br>
+         <strong>{{answer}} </strong></br>
+        You might want to <a href="hawtracker/add_query/">try again...</a>
         {% if next %}
         This means that interest rates are more likely to go 
         {% if next == 'UP' %}

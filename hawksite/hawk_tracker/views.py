@@ -71,7 +71,7 @@ def result(request):
                 query_answer = "Seems you forgot to choose a  prediction model.. "
 
         else:
-            query_answer = "...Oh, wait! This doesn't quite look like a Fed's statement..."
+            query_answer = "Our financial models say . . . "
             context = {'answer': query_answer}
             
             # PROCESS THIS WITH NLTK
