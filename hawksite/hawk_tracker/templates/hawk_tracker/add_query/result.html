@@ -11,23 +11,22 @@
         <title> Hawkwatchers says... </title>
          <body class="text-center">
             <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="hawk_tracker/index/">Home</a>
-            <a class="/about" href="hawk_tracker/about/">About Us</a>
+            <a class="nav-link active" href="/hawk_tracker">Home</a>
+            <a class="/about" href="/hawk_tracker/about">About Us</a>
         <h1 style = 'font-size = 270%;'>  H A W K W A T C H E R S </h1>
-        We got an answer... <strong>{{ boldmessage }}</strong><br /><br />
+        We got an answer... <strong></br>{{ boldmessage }}</strong><br /><br />
          <strong>{{answer}} </strong></br>
-        You might want to <a href="hawtracker/add_query/">try again...</a>
         {% if next %}
         This means that interest rates are more likely to go 
         {% if next == 'UP' %}
         <span style="color:rgb(255, 90, 41)" > {{next}} </span>
          in the next Fed's monetary policy decision </br> 
         {% else %}
-        <span style="color:rgb(92, 165, 19)" > {{next}} </span>
+        <span style="color: rgb(60, 179, 113)" > {{next}} </span>
          in the next Fed's monetary policy decision </br> 
         
         {% endif %}
-        {% else %} </br>
+        {% else %} </br> You might want to <a HREF="javascript:javascript:history.go(-1)">try again...</a></br>
         {% endif %}
        
     </body>

@@ -78,7 +78,6 @@ def predict(model, new_text):
 	
 	elif model == 'NB':
 		clf = sklearn.naive_bayes.GaussianNB()
-	
 
 
 	# fit model

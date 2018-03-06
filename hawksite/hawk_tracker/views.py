@@ -71,7 +71,7 @@ def result(request):
                 query_answer = "Seems you forgot to choose a  prediction model.. "
 
         else:
-            query_answer = "Our financial models say . . . "
+            query_answer = "Our models say . . . This doesn't quite look like a Fed statement!"
             context = {'answer': query_answer}
             
             # PROCESS THIS WITH NLTK
@@ -124,8 +124,8 @@ def process_query(method, query_answer):
 
     '''
     
-    #res = nn_model.predict(method, query_answer)
-    res = True
+    res = nn_model.predict(method, query_answer)
+    
     
     if res == True:
         mess = "HAWKISH!", "UP"
