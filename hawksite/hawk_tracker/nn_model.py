@@ -53,6 +53,7 @@ def predict(model, new_text):
 	# the change in interest rate associated with that month ['Change'],
 	# and a boolean expression indicating whether
 	# the interest rate increased ['increase']
+	
 	releaserates_df = pd.read_csv('hawk_tracker/allreleaserates.csv', index_col=0)
 
 

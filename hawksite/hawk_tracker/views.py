@@ -61,33 +61,32 @@ def result(request):
         
         text = form.data['query_text']
         method = form.data['query_method']
-
-        if check(text):
-            query_answer = process_query(method, text)
-            context = {'answer': query_answer[0], 'next': query_answer[1]}
-            if query_answer:
-                context = {'answer': query_answer[0], 'next': query_answer[1]}
-            else:
-                query_answer = "Seems you forgot to choose a  prediction model.. "
-
+        if method == "HELP":
+            context = {'answer': "Seems you forgot to choose a  prediction model.. "}
         else:
-            query_answer = "Our models say . . . This doesn't quite look like a Fed statement!"
-            context = {'answer': query_answer}
+
+            if check(text):
+                    query_answer = process_query(method, text)
+                    context = {'answer': query_answer[0], 'next': query_answer[1]}
+
+            else:
+                query_answer = "Our models say . . . This doesn't quite look like a Fed statement!"
+                context = {'answer': query_answer}
+                
+                # PROCESS THIS WITH NLTK
+            print(query_answer)
             
-            # PROCESS THIS WITH NLTK
-        print(query_answer)
-        
-        query_inst = Query()
-        #query_inst.query_date = "Sun, 4 Mar 2018 23:30:13 +0000" ### CHECK THIS LATER
-        query_inst.query_answer = query_answer
-        query_inst.query_text = text
-        query_inst.query_method = method
-        query_inst.save()
-        ans_inst = Answer(query_answer = query_inst) # INSTANTIATE ANSWER WITH THE MODEL RESULT
-        ans_inst.text = query_answer
-        ans_inst.save()
-        
-        print(query_inst.query_method)
+            query_inst = Query()
+            #query_inst.query_date = "Sun, 4 Mar 2018 23:30:13 +0000" ### CHECK THIS LATER
+            query_inst.query_answer = query_answer
+            query_inst.query_text = text
+            query_inst.query_method = method
+            query_inst.save()
+            ans_inst = Answer(query_answer = query_inst) # INSTANTIATE ANSWER WITH THE MODEL RESULT
+            ans_inst.text = query_answer
+            ans_inst.save()
+            
+            print(query_inst.query_method)
 
     return render(request,'hawk_tracker/add_query/result.html', context) # WHERE
     #THE USER WILL BE REDIRECTED TO CHECK THE RESULT
@@ -125,7 +124,6 @@ def process_query(method, query_answer):
     '''
     
     res = nn_model.predict(method, query_answer)
-    
     
     if res == True:
         mess = "HAWKISH!", "UP"
