@@ -77,8 +77,15 @@ allreleasescleaned.csv (Joseph) (Original)
 
 nltk_processing.ipynb (Joseph) (Heavily Modified)
 
+The above file contains the code to organize the dataframes as well as several modeling techniques we did not end up using. 
+The consolidated code is in the below file:
+
+hawkwatchers/hawksite/hawk_tracker/nn_model.py 
+
 ## Website Construction
 
 hawksite folder (Elena and Natasha) (Modified)
-release_scraping_hist.py
-util.py 
+
+## Instructions to Run All Code
+
+...
