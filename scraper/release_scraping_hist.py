@@ -14,7 +14,7 @@ fed_hist_page = "https://www.federalreserve.gov/monetarypolicy/fomc_historical_y
 FRAG = "https://www.federalreserve.gov"
 
 
-def get_hist_links(link = fed_hist_page, min_year = 2006, max_year = 2007):
+def get_hist_links(link = fed_hist_page, min_year = 1994, max_year = 2013):
     '''
     Extracts links to Fed statements pre 2013
 
