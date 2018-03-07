@@ -63,9 +63,12 @@ release_scraping_hist.py (Elena) (Heavily Modified)
 
 util.py (Direct copy)
 
-### Interest Rate collection
+### Rate Sources
 
-all_rates.xslx (Natasha) (Original)
+all_rates.xslx 
+
+Labor_Conditions_Index.csv 
+https://www.kansascityfed.org/research/indicatorsdata/lmci
 
 ### Combined Data
 
