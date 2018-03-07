@@ -41,8 +41,7 @@ TODO:
 
 Code from outside sources was used in the following contexts and manners:
 
-Web Scraping: We used the following util functions from files provided in course 
-CAPP 30122 as part of PA #2.
+Web Scraping: We used the following util functions from files provided in course CAPP 30122 as part of PA #2.
  - util.read_request()
  - util.get_request()
  
@@ -57,17 +56,33 @@ Website Construction:
 
 ### Web Scraping
 
+The press releases used were scraped from the Federal Reserve website. The releases are located in different locations and in different formats for 2013 - 2018 and for pre-2013. As such, there are separate web scrapers and starting urls. 
+
 release_scraping.py (Elena and Natasha) (Heavily Modified)
 
+https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+
 release_scraping_hist.py (Elena) (Heavily Modified)
+
+https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm
 
 util.py (Direct copy)
 
 ### Rate Sources
 
-all_rates.xslx 
+The effective federal funds rate was downloaded from the Federal Reserve Bank of St. Louis' website. There is a period of time when the interest rate does not change. For that time range, the shadow interest rate calculated by Wu/Xia was use. It was  downloaded from the Federal Reserve Bank of Atlanta website.
+
+all_rates.csv
+
+https://fred.stlouisfed.org/series/FEDFUNDS
+
+https://www.frbatlanta.org/cqer/research/shadow_rate.aspx?panel=1
+
+The Labor Market Conditions Index was used to create a counterpoint to our model. The data was downloaded from the Federal 
+Reserve Bank of Kansas City' website. 
 
 Labor_Conditions_Index.csv 
+
 https://www.kansascityfed.org/research/indicatorsdata/lmci
 
 ### Combined Data
@@ -84,7 +99,7 @@ allreleasescleaned.csv (Joseph) (Original)
 
 nltk_processing.ipynb (Joseph) (Heavily Modified)
 
-The above file contains the code to organize the dataframes as well as several modeling techniques we did not end up using. 
+The above notebook contains the code to organize the dataframes as well as several modeling techniques we did not end up using. 
 The consolidated code is in the below file:
 
 hawkwatchers/hawksite/hawk_tracker/nn_model.py 
