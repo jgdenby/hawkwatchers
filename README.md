@@ -10,6 +10,10 @@ __hawkwatchers__ runs on [Django](https://www.djangoproject.com/) and makes use 
 3. [scikit-learn](http://scikit-learn.org/)
 4. [nltk](http://www.nltk.org/)
 5. [pyenchant](https://github.com/rfk/pyenchant)
+6. [beautiful_soup] (https://pypi.python.org/pypi/beautifulsoup4)
+7. [urllib3] https://urllib3.readthedocs.io/en/latest/
+
+The following built-in modules are also used: sys, re, math, csv
 
 All requisite packages can be installed as such:
 ```
