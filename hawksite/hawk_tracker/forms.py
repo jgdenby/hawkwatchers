@@ -13,20 +13,13 @@ MODEL_CHOICES = [ ('HELP','Choose A Prediction Model!' ),
     ('NB', 'Naive Bayes')]
 
 class QueryForm(forms.ModelForm):
-    #name = forms.CharField()
     query_text = forms.CharField(max_length=5000,
     widget = forms.Textarea(attrs={'cols': 110, 'rows': 20}), \
     initial="Add statement here...", label = '')
     query_method = forms.ChoiceField(widget=forms.Select(),
-                              required=True, choices = MODEL_CHOICES,label = ''
-        )
+                              required=True, choices = MODEL_CHOICES,label = '')
 
 
-    # def clean_queryform(self):
-    #     user_data = self.cleaned_data['text']
-        
-    #     return user_data
-   
 
     # An inline class to provide additional information on the form.
     class Meta:
