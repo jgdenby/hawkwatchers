@@ -58,7 +58,9 @@ Website Construction:
 ### Web Scraping
 
 release_scraping.py (Elena and Natasha) (Heavily Modified)
+
 release_scraping_hist.py (Elena) (Heavily Modified)
+
 util.py (Direct copy)
 
 ### Interest Rate collection
@@ -70,7 +72,9 @@ all_rates.xslx (Natasha) (Original)
 The data is consolidated in the following dataframes that were used to run the models. 
 
 allratesdf.csv (Joseph) (Original)
+
 allreleaserates.csv (Joseph) (Original)
+
 allreleasescleaned.csv (Joseph) (Original)
 
 ## Model Construction
