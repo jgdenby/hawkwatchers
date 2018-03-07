@@ -116,11 +116,6 @@ def post2013_calendar_scraper(url):
                         release_links.append(link_abs)
 
     return release_links
-	
-	
-
-#textdf = pd.DataFrame({'date': [date], 'release_text': [texts]})
-
 
 
 
