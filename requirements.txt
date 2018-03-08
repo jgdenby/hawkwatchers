@@ -1,5 +1,4 @@
 beautifulsoup4==4.6.0
-conda==4.3.25
 daytime==0.4
 dj-database-url==0.5.0
 Django==2.0.1
