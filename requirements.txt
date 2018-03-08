@@ -13,7 +13,6 @@ pandas==0.22.0
 pandocfilters==1.4.1
 pipenv==8.2.7
 psycopg2==2.7.4
-pyenchant==2.0.0
 python-dateutil==2.6.1
 requests==2.18.4
 scikit-image==0.13.1
