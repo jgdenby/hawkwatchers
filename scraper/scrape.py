@@ -13,6 +13,8 @@ import csv
 FED_HOME_PAGE = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 FED_HISTORICAL_PAGE = "https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm"
 FRAG = "https://www.federalreserve.gov"
+# HEADLINES = ["FRB: Press Release -- FOMC statement --" , "FRB: Press Release -- FOMC statement and Board discount rate action -- ",\
+#  "FRB: Press Release--FOMC statement and Board discount rate action--"]
 
 def is_absolute_url(url):
     '''
@@ -97,7 +99,6 @@ def post2013_calendar_scraper(url = FED_HOME_PAGE):
         links - list of strings, non-repeated and not previously visited
                 links
     '''
-    #A. Extracting links
     soup  = make_soup(url)
     home_page = "https://www.federalreserve.gov"
     
@@ -166,59 +167,58 @@ def scrape_release(link):
 	html = pm.urlopen(url = link, method = "GET").data
 	soup = bs4.BeautifulSoup(html, 'lxml')
 
-	date = soup.find_all('p', class_ = "article__time")[0].text
+	if soup.find_all('p', class_ = "article__time"):
 
-	ptxt = ''
-	text_divtag = soup.find_all('div', class_ = "col-xs-12 col-sm-8 col-md-8")[0]
-	text_ptags = text_divtag.find_all('p')
-	for ptag in text_ptags:
-		if not ptag.find_all('a'):
-			if not re.findall("Voting for the FOMC monetary policy action ",ptag.text): 
-				ptxt += ptag.text
-	ptxt = ptxt.strip()
+		date = soup.find_all('p', class_ = "article__time")[0].text
+
+		ptxt = ''
+		text_divtag = soup.find_all('div', class_ = "col-xs-12 col-sm-8 col-md-8")[0]
+		text_ptags = text_divtag.find_all('p')
+		for ptag in text_ptags:
+			if not ptag.find_all('a'):
+				if not re.findall("Voting for the FOMC monetary policy action ",ptag.text): 
+					ptxt += ptag.text
+					ptxt = ptxt.strip()
+					ptxt = ptxt.replace("\n", "")
+					ptxt = ptxt.replace('\r', "")
+
+
+	else:
+		date = soup.find_all('title')[0].text
+		date = re.findall(r'(\w+\s\d+,\s\d+)', date)[0]
+		p = soup.find_all('p')
+		ptxt =''
+		for t in p:
+			ptxt += t.text
+			ptxt = ptxt.strip()
+		ptxt = ptxt.replace("\n", "")
+		ptxt = ptxt.replace('\r', "")
+		ptxt = ptxt.replace("\xa0", "")
 	
 	return date, ptxt
 
-def scrape_release_hist(link, dates, texts):
-	'''
-	Takes the URL to an individual press release 
-	and an ongoing lists of the dates and texts, 
-	scrapes the release date and text from that link's
-	press release, and appends that information to the appropriate lists.
-
-	Inputs:
-		link: string of the URL to scrape
-		dates: list of release dates
-		texts: list of release text
-
-	Outputs:
-		dates: updated list of release dates
-		texts: updated list with the links' text data
-	'''
-
-	pm = urllib3.PoolManager()
-	html = pm.urlopen(url = link, method = "GET").data
-	soup = bs4.BeautifulSoup(html, 'lxml')
 
 
 
 
-	
+if __name__ == "__main__":
+	links = []
+	links += get_hist_links()
+	links += post2013_calendar_scraper()
 
-	date = soup.find_all('p', class_ = "article__time")[0].text
+	dates = []
+	texts = []
+	for l in links:
+		ldate, ltxt = scrape_release(l)
+		dates.append(ldate)
+		texts.append(ltxt)
 
-	ptxt = ''
-	text_divtag = soup.find_all('div', class_ = "col-xs-12 col-sm-8 col-md-8")[0]
-	text_ptags = text_divtag.find_all('p')
-	for ptag in text_ptags:
-		if not ptag.find_all('a'):
-			if not re.findall("Voting for the FOMC monetary policy action ",ptag.text): 
-				ptxt += ptag.text
-	ptxt = ptxt.strip()
+	df = pd.DataFrame({'date': dates, 'release_text':texts})
+	df.to_csv('scrapeddata.csv')
 
-	dates.append(date)
-	texts.append(ptxt)
-	
-	return dates, texts
+
+
+
+
 
 
