@@ -3,7 +3,7 @@ import nltk
 import math
 import pandas as pd
 import numpy as np 
-import enchant
+#import enchant
 
 import sklearn
 import sklearn.neural_network
@@ -13,23 +13,23 @@ import sklearn.ensemble
 
 from sklearn.model_selection import train_test_split
 
-def check_english(new_text, thresh = .25):
-	'''
-	Takes a release text and roughly determines the number of non-english
-	words. If the percentage of non-english words is greater or equal to
-	the specified threshold, return False. Else, return True.
-	'''
+# def check_english(new_text, thresh = .25):
+# 	'''
+# 	Takes a release text and roughly determines the number of non-english
+# 	words. If the percentage of non-english words is greater or equal to
+# 	the specified threshold, return False. Else, return True.
+# 	'''
 
-	d = enchant.Dict('en_US')
+# 	d = enchant.Dict('en_US')
 
-	word_list = new_text.split(' ')
-	non_en = 0
+# 	word_list = new_text.split(' ')
+# 	non_en = 0
 
-	for w in word_list:
-		if not d.check(w):
-			non_en += 1
+# 	for w in word_list:
+# 		if not d.check(w):
+# 			non_en += 1
 
-	return non_en/len(word_list) <= thresh
+# 	return non_en/len(word_list) <= thresh
 
 
 def predict(model, new_text):
