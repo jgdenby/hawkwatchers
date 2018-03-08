@@ -32,6 +32,14 @@ def get_request(url):
 
     return r
 
+def is_absolute_url(url):
+    '''
+    Is url an absolute URL?
+    '''
+    if url == "":
+        return False
+    return urllib.parse.urlparse(url).netloc != ""
+
 
 def read_request(request):
     '''

@@ -46,6 +46,7 @@ Web Scraping: We used the following util functions from files provided in course
 ```python
 >>> util.read_request()
 >>> util.get_request()
+>>> util.is_absolute_url()
 ```
 
  
