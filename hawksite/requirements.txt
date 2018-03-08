@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+beautifulsoup4
+numpy
+urllib3
+
+pandas == 0.22
+scikit-learn == 0.19.1
+nltk == 3.2.5
+pyenchant == 2.0.0
+django == 2.0.3
+
+[dev-packages]
+
+pytest = "*"
+django = "*"
+dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
+twine = "*"
