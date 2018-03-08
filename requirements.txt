@@ -1,6 +1,3 @@
-anaconda-client
-anaconda-navigator
-anaconda-project
 beautifulsoup4==4.6.0
 conda==4.3.25
 daytime==0.4
