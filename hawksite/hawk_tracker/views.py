@@ -10,7 +10,7 @@ from .forms import QueryForm
 from .models import Answer, Query, Statement
 from hawk_tracker import nn_model
 import nltk
-import enchant
+#import enchant
 from sklearn.model_selection import train_test_split
 
 class IndexView(generic.ListView):
@@ -96,16 +96,16 @@ def check(new_text, thresh = .25):
     outcome = []
     outcome.append(len(new_text) > 200)
 
-    d = enchant.Dict('en_US')
+    # d = enchant.Dict('en_US')
 
-    word_list = new_text.split(' ')
-    non_en = 0
+    # word_list = new_text.split(' ')
+    # non_en = 0
 
-    for w in word_list:
-        if not d.check(w):
-            non_en += 1
+    # for w in word_list:
+    #     if not d.check(w):
+    #         non_en += 1
 
-    outcome.append(non_en/len(word_list) <= thresh)
+    #outcome.append(non_en/len(word_list) <= thresh)
 
     if "econ" not in new_text:
         outcome.append(False)
