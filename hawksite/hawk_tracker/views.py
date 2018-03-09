@@ -102,8 +102,9 @@ def check(new_text, thresh = .25):
     non_en = 0
 
     for w in word_list:
-        if not d.check(w):
-            non_en += 1
+        if w:
+            if not d.check(w):
+                non_en += 1
 
     outcome.append(non_en/len(word_list) <= thresh)
 
