@@ -1,7 +1,4 @@
 
-
-from sklearn.model_selection import train_test_split
-
 def check(new_text, thresh = .25):
     new_text = new_text.strip()
     outcome = []
