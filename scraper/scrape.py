@@ -13,8 +13,6 @@ import csv
 FED_HOME_PAGE = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 FED_HISTORICAL_PAGE = "https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm"
 FRAG = "https://www.federalreserve.gov"
-# HEADLINES = ["FRB: Press Release -- FOMC statement --" , "FRB: Press Release -- FOMC statement and Board discount rate action -- ",\
-#  "FRB: Press Release--FOMC statement and Board discount rate action--"]
 
 def is_absolute_url(url):
     '''
