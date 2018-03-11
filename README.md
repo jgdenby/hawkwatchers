@@ -29,15 +29,6 @@ $ pip install [package name]
 
 We are graduate students in the [CAPP](https://capp.uchicago.edu/) and [MACSS](https://macss.uchicago.edu/) programs at the University of Chicago. 
 
-TODO:
-
-- add instructions for:
-    + scraping links/texts
-    + nltk processing
-    + scikit learn
-    + nn_model
-- add data cleaning code / description 
-
 ## Note on Modified Code
 
 Code from outside sources was used in the following contexts and manners:
