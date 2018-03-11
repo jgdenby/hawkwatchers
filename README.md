@@ -85,7 +85,7 @@ The data as used for modeling is consolidated in the following `.csv` files:
 `data/allreleaserates.csv` (Joseph) (Original)
 - Merged representation of above two datasets
 
-`data/Labor_Conditions_Index.csv` (Elena) (Original)
+`data/Labor_Conditions_Index.csv` (Elena and Joseph) (Original)
 - Contains LMCI data from Feb. 1994
 
 ## Model Construction
