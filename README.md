@@ -37,7 +37,7 @@ Then, type the following URL into your favorite browser to view the site!
 We are graduate students in the [CAPP](https://capp.uchicago.edu/) and [MACSS](https://macss.uchicago.edu/) programs at the University of Chicago. 
 
 
-## Data Collection
+## Data Collection & Model Construction
 
 ### Web Scraping
 
@@ -54,23 +54,7 @@ The effective federal funds rate was collected from the [Federal Reserve Bank of
 The [Labor Market Conditions Index](https://www.investopedia.com/articles/markets/113015/what-labor-market-conditions-index.asp) was used as a means of comparison to our text model. The data was downloaded from the [Federal 
 Reserve Bank of Kansas City](https://www.kansascityfed.org/research/indicatorsdata/lmci). It is housed within `data/Labor_Conditions_Index.csv`.
 
-### Combined Data
-
-The data as used for modeling is consolidated in the following `.csv` files: 
-
-`data/allratesdf.csv` 
-- Contains Federal Funds rate data since Feb. 1994
-
-`data/allreleasescleaned.csv` 
-- Contains press release text data since Feb. 1994
-
-`data/allreleaserates.csv` 
-- Merged representation of above two datasets
-
-`data/Labor_Conditions_Index.csv` 
-- Contains LMCI data from Feb. 1994
-
-## Model Construction
+### Model Construction
 
 `nltk_processing.ipynb` 
 
@@ -78,40 +62,12 @@ The above notebook contains the code to clean and combine the aforementioned dat
 
 The consolidated modeling code used for the Django site is outlined in the file below:
 
-`hawkwatchers/hawksite/hawk_tracker/nn_model.py` 
-
-## Website Construction
-
-The form classes, model classes, `views.py`, and templates are original. 
-
-In the `hawkwatchers` folder:
-
-`hawksite/hawk_tracker/__pycache_` 
-
-`hawksite/hawk_tracker/migrations` 
-
-`hawksite/hawk_tracker/static/hawk_trackerstyle2.css` 
-
-`hawksite/hawk_tracker/admin.py` 
-
-`hawksite/hawk_tracker/apps.py` 
-
-`hawksite/hawk_tracker/forms.py` 
-
-`hawksite/hawk_tracker/models.py` 
-
-`hawksite/hawk_tracker/nn_model.py` 
-
-`hawksite/hawk_tracker/tests.py` 
-
-`hawksite/hawk_tracker/urls.py` 
-
-`hawksite/hawk_tracker/views.py` 
-
-`hawksite/hawk_tracker/templates/hawk_tracker` 
+`hawkwatchers/hawksite/hawk_tracker/nn_model.py`  
 
 ## Instructions to Run All Code
+
 ### Link & Text Scraping
+
 All functions/scripts relating to data collection via webscraping are contained within the `scraper` directory. 
 
 Running the following command within that directory will scrape all relevant press releases (by aggregating links to press releases and scraping via the appropriate HTML format) and output the file `scrapeddata.csv`, which contains all Fed press releases since January 1994 paired with their release date:
