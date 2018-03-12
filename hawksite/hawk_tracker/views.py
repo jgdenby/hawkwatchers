@@ -101,7 +101,8 @@ def check(new_text, thresh = .25):
     outcome.append(len(new_text) > 200)
 
     d = enchant.Dict('en_US')
-
+    denom = len(word_list)
+    
     word_list = new_text.split(' ')
     non_en = 0
 
@@ -110,7 +111,7 @@ def check(new_text, thresh = .25):
             if not d.check(w):
                 non_en += 1
 
-    outcome.append(non_en/len(word_list) <= thresh)
+    outcome.append(non_en/denom <= thresh)
 
     if "econ" not in new_text:
         outcome.append(False)
