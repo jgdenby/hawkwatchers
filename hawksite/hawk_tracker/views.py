@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-import daytime 
 from .forms import QueryForm
 from .models import Answer, Query, Statement
 from hawk_tracker import nn_model
@@ -14,6 +13,7 @@ import enchant
 from sklearn.model_selection import train_test_split
 
 class IndexView(generic.ListView):
+    # Creates a view object associated with the index page of the website. 
     template_name = 'hawk_tracker/index.html'
     context_object_name = 'latest_statement_list'
 
@@ -22,6 +22,7 @@ class IndexView(generic.ListView):
         return Statement.objects.order_by('-statement_last')[:5]
 
 class StatementView(generic.ListView):
+    # Creates a view object associated to the Statement objects in models.py
     template_name = 'hawk_tracker/index.html'
     context_object_name = 'latest_statement_list'
 
@@ -30,31 +31,35 @@ class StatementView(generic.ListView):
         return Statement.objects.order_by('-statement_last')[:5]
 
 class DetailView(generic.DetailView):
+    # Creates a view object associated with a page displaying a particular
+    # Federal Reserve press release and its' details. 
     model = Statement
     template_name = 'hawk_tracker/detail.html'
 
 
 def about(request):
 
-    # Render the form with error messages (if any).
+    # Redirect the user to the 'About' page of the website. 
     return render(request, 'hawk_tracker/about.html')
+
 def add_query(request):
-    # Get the context from the request.
-    #context = RequestContext(request)
+    # Instantiate a new form object that allows the user to submit a query. 
     form = QueryForm()
     
     # Render the form with error messages (if any).
     return render(request, 'hawk_tracker/add_query.html', context = {'form': form})
 
-
 def result(request):
-
+    '''
+    Extracts the string associated with a users query to process it so 
+    that it can be taken as an input to our model. 
+    '''
     if request.method == 'POST':
-        form = QueryForm(request.POST) # INSTANTIATE Query with user's input (text)
+        form = QueryForm(request.POST) # Instantiate Query with user's input (text)
         
         text = form.data['query_text']
         method = form.data['query_method']
-        if method == "HELP":
+        if method == "NO MODEL":
             context = {'answer': "Seems you forgot to choose a  prediction model.. "}
         else:
 
@@ -65,22 +70,17 @@ def result(request):
             else:
                 query_answer = "Our models say . . . This doesn't quite look like a Fed statement!"
                 context = {'answer': query_answer}
-                
-            print(query_answer)
-            
+                            
             query_inst = Query()
-            #query_inst.query_date = "Sun, 4 Mar 2018 23:30:13 +0000" ### CHECK THIS LATER
             query_inst.query_answer = query_answer
             query_inst.query_text = text
             query_inst.query_method = method
             query_inst.save()
-            ans_inst = Answer(query_answer = query_inst) # INSTANTIATE ANSWER WITH THE MODEL RESULT
+            ans_inst = Answer(query_answer = query_inst) # Instantiate Answer object with the model result.
             ans_inst.text = query_answer
             ans_inst.save()
             
-            print(query_inst.query_method)
-
-    return render(request,'hawk_tracker/add_query/result.html', context) # WHERE
+    return render(request,'hawk_tracker/add_query/result.html', context) 
     #THE USER WILL BE REDIRECTED TO CHECK THE RESULT
 
 
@@ -133,15 +133,15 @@ def process_query(method, query_answer):
             to the NLTK model
             
     Output:
-        mess: (str) based on the model's decision, words to be passed to the views page
+        msg: (str) based on the model's decision, words to be passed to the views page
     '''
     
     res = nn_model.predict(method, query_answer)
     
     if res == True:
-        mess = "HAWKISH!", "UP"
+        msg = "HAWKISH!", "UP"
     else:
-        mess = "DOVISH!", "DOWN"
+        msg = "DOVISH!", "DOWN"
     
-    return mess
+    return msg
     
