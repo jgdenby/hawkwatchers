@@ -21,10 +21,6 @@ class IndexView(generic.ListView):
         """Return the latest published statements."""
         return Statement.objects.order_by('-statement_last')[:5]
 
-    # def get_queryset(self):
-    #     """Return the latest published queries."""
-    #     return Query.objects.order_by('-query_date')[:5]
-
 class StatementView(generic.ListView):
     template_name = 'hawk_tracker/index.html'
     context_object_name = 'latest_statement_list'
@@ -37,8 +33,6 @@ class DetailView(generic.DetailView):
     model = Statement
     template_name = 'hawk_tracker/detail.html'
 
-# class AboutView(generic.ListView):
-#     template_name = 'hawk_tracker/about.html'
 
 def about(request):
 
@@ -54,7 +48,6 @@ def add_query(request):
 
 
 def result(request):
-    # query_inst = get_object_or_404(Query)
 
     if request.method == 'POST':
         form = QueryForm(request.POST) # INSTANTIATE Query with user's input (text)
@@ -73,7 +66,6 @@ def result(request):
                 query_answer = "Our models say . . . This doesn't quite look like a Fed statement!"
                 context = {'answer': query_answer}
                 
-                # PROCESS THIS WITH NLTK
             print(query_answer)
             
             query_inst = Query()
@@ -93,6 +85,18 @@ def result(request):
 
 
 def check(new_text, thresh = .25):
+    '''
+    Checks whether the text entered resembles a Federal Reserve statements
+    by checking length, language, and key wording. 
+    
+    Inputs:
+        new_text: (str) text entered by user
+        thresh: (int) minimum percentage of words in text that must be in 
+            designated language - American English. 
+            
+    Output:
+        Returns True if valid and False if not a valid statement
+    '''
     outcome = []
     outcome.append(len(new_text) > 200)
 
@@ -120,8 +124,15 @@ def check(new_text, thresh = .25):
 
 def process_query(method, query_answer):
     '''
-    Process a given query with the NLTK model
-
+    Process a given query using the NLTK model
+    
+    Inputs:
+        method: (str) the processing model selected
+        query_answer: (str) the Query object returned to be passed
+            to the NLTK model
+            
+    Output:
+        mess: (str) based on the model's decision, words to be passed to the views page
     '''
     
     res = nn_model.predict(method, query_answer)
