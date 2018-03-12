@@ -1,7 +1,7 @@
 from django import forms
 from .models import Query, Answer
 
-MODEL_CHOICES = [ ('HELP','Choose A Prediction Model!' ),
+MODEL_CHOICES = [ ('NO MODEL','Choose A Prediction Model!' ),
     ('NN', 'Neural Networks'),
     ('DT', 'Decision Tree'),
     ('BAG', 'Bagging (Decision Tree)'),
