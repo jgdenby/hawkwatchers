@@ -13,7 +13,6 @@ import sklearn.ensemble
 
 from sklearn.model_selection import train_test_split
 
-
 def predict(model, new_text):
 	'''
 	Takes a model specification and new release text and, 
