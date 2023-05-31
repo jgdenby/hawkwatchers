@@ -1,0 +1,50 @@
+{% load static %}
+<!-- WHAT THE USER WILL SEE -->
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{% static 'styleb.css' %}" />
+
+<html>
+
+<html>
+
+<head>
+    <title> Stellar rec says... </title>
+
+<body class="text-left">
+    <nav class="nav nav-masthead justify-content-left">
+        <img src="{% static 'klogo2.png' %}" alt="KTechNetSky" width="90" height="100"></br>
+        <a class="nav-link active" href="/Stellar">Home</a>
+        <a class="/about" href="/Stellar/about">About Us</a><br>
+        <nav class="nav nav-masthead justify-content-center"></nav>
+        <h1 style='font-size = 370%;'> S T E L L A R </h1>
+        {% if good %}
+        <h3 style='font-size = 170%;'></h3> Great news! Some cool pathways based on <strong> {{tgnode}} </strong> were
+        found! <br><br>
+
+        Some artists in there ... </br>{{ boldmessage }}<br /><br />
+
+        <div style="white-space:pre" align='right'>
+            <strong> {{answer}}</strong>
+        </div>
+        </br></br>
+        Check out a playlist based on them <a href={{plink}}>here</a>.
+
+
+        {% else %}
+        <h3 style='font-size = 170%;'></h3> <strong> Oops :/ </strong> <br> <br> <br> That artist is not on our radar
+        (yet!)
+
+        <br><br>
+
+        {% endif %}
+        <h3 style='font-size = 160%;'></br> Go for <a HREF="javascript:javascript:history.go(-1)">a
+                new one?</a>. . . </br></h3>
+
+</body>
+</head>
+
+</html>
+</head>
+
+</html>

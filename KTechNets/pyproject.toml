@@ -1,0 +1,22 @@
+[tool.poetry]
+
+name = "KTechNets"
+description = "Organic music browsing"
+version = "0.1.0"
+authors = ["Elena Badillo Goicoechea"]
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.11"
+psycopg2 = "*"
+importlib_metadata ="*"
+django = "3.2"
+dj-database-url = "^1.0.0"
+whitenoise = {extras = ["brotli"], version = "^6.2.0"}
+gunicorn = "^20.1.0"
+pandas = "1.0.0"
+numpy = "1.21.0"
+spotipy = "2.22.0"
+
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=3.2,<4"]
